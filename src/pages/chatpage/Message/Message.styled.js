@@ -74,7 +74,7 @@ export const MetaTimestamp = styled.div`
 export const ChatMessageContent = styled.div`
     /* background-color: blue; */
     color: ${({ theme }) => theme.lightText};
-    font-size: 0.9rem;
+    font-size: 1rem;
     padding: 1rem 0;
     padding-right: 1rem;
     word-break: break-word;
@@ -87,6 +87,7 @@ export const ChatMessageContent = styled.div`
     -webkit-hyphens: auto;
     hyphens: auto;  
     max-width: 100%;
+    line-height: 1.5rem;
 `;
 
 export const ChatMessageImage = styled.img`

@@ -5,7 +5,7 @@ import { ChatBoxContainer, ChatBoxDiv, ChatFormContainer, ChatFormInput, ChatFor
 import Message from './Message/Message'
 import { GoPaperclip } from "react-icons/go";
 import { BsSend } from "react-icons/bs";
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, styled } from '@mui/material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, styled, Skeleton } from '@mui/material'
 import { ThemeContext } from 'styled-components'
 
 
@@ -23,7 +23,7 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 const Chatpage = () => {
-
+	const [id, setId] = useState(1)
 	const [loading, setLoading] = useState(false);
 	const scrollContainer = useRef(null);
 	const [messages, setMessages] = useState([]);
@@ -78,6 +78,7 @@ const Chatpage = () => {
 
 
 	const restPost = async (userId, msg) => {
+		setLoading(true)
 		const formdata = new FormData();
 		formdata.append('content', msg);
 		formdata.append('userId', userId);
@@ -105,7 +106,7 @@ const Chatpage = () => {
 
 			// Append the received message
 			newMessages.push(jsonData);
-
+			setLoading(false)
 			return newMessages;  // Update the state with the new messages
 		});
 
@@ -142,7 +143,13 @@ const Chatpage = () => {
 						>
 							{messages.map((message, index) => (<Message key={index} msgData={message} />))}
 
-
+							{loading && (
+								<Box sx={{ display: 'flex', flexDirection: 'column', padding: 2, width: "80%" }}>
+									<Skeleton sx={{ backgroundColor: 'grey' }} variant="rectangular" height={100} width="100%" />
+									<Skeleton sx={{ backgroundColor: 'grey' }} variant="text" />
+									<Skeleton sx={{ backgroundColor: 'grey' }} variant="text" />
+								</Box>
+							)}
 						</ChatMessageContainer>
 
 					</ChatBoxDiv>
